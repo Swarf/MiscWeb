@@ -1,0 +1,28 @@
+#page-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+}
+
+.footer {
+    padding-bottom: 1rem;
+}
+
+.footer label {
+    font-family: sans-serif;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flash-card {
+    font-family: sans-serif;
+    font-size: 75vh;
+}
