@@ -1,7 +1,7 @@
 #page-container {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-flow: column;
     height: 100vh;
 }
 
@@ -10,11 +10,21 @@
 }
 
 .footer {
-    padding-bottom: 1rem;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .footer label {
     font-family: sans-serif;
+}
+
+.footer > * {
+    margin-left: 1em;
+}
+
+.footer .toggle {
+    width: 90px;
+    position: relative;
 }
 
 .card-container {
@@ -24,5 +34,250 @@
 
 .flash-card {
     font-family: sans-serif;
+    line-height: 80vh;
     font-size: 75vh;
+    transition: opacity 400ms;
 }
+
+.music-symbol {
+    font-family: Arial Unicode MS, Lucida Sans Unicode;
+    font-size: 50vh;
+}
+
+.show {
+    opacity: 1;
+    /*transition: opacity 400ms;*/
+}
+
+.hide {
+    opacity: 0;
+    /*transition: opacity 400ms;*/
+}
+
+input[type="range"] {
+    border: 2px solid #999999; border-radius: 20px;
+    width: 10rem;
+}
+
+
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: attr(data-checked);
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: attr(data-unchecked);
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0;
+}
+
+
+/* Radio Button */
+
+.switch-field {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    background-color: #e4e4e4;
+    border-radius: 1rem;
+}
+
+.switch-field input {
+    /* This whole section could be display: none. But, this allows things like keyboard arrow control */
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+}
+
+.switch-field label {
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1;
+    text-align: center;
+    padding: 0.5rem 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    width: 3rem;
+    z-index: 2;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.switch-field input:checked + label {
+    color: black;
+}
+
+.switch-field label:first-of-type {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.switch-field label:last-of-type {
+    border-radius: 0 1rem 1rem 0;
+}
+
+.switch-field input:nth-of-type(1):checked ~ .switch-selection {
+    border-radius: 1rem 0 0 1rem;
+    left: 1px;
+}
+
+.switch-field input:nth-of-type(2):checked ~ .switch-selection {
+    left: 33%;
+}
+
+.switch-field input:nth-of-type(3):checked ~ .switch-selection {
+    left: 67%;
+}
+
+.switch-field input:last-of-type:checked ~ .switch-selection {
+    border-radius: 0 1rem 1rem 0;
+}
+
+.switch-selection {
+    position: absolute;
+    z-index: 1;
+    /*top: 2px;*/
+    /*left: 2px;*/
+    display: block;
+    width: 4rem;
+    height: 100%;
+    border-radius: 3px;
+    /*background-color: #9dd993;*/
+    /*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9dd993), color-stop(100%, #65bd63));*/
+    background-image: -webkit-linear-gradient(top, #C8F526, #8dc41d);
+    /*background-image: -moz-linear-gradient(top, #9dd993, #65bd63);*/
+    /*background-image: -ms-linear-gradient(top, #9dd993, #65bd63);*/
+    /*background-image: -o-linear-gradient(top, #9dd993, #65bd63);*/
+    /*background-image: linear-gradient(top, #32CD32, #65bd63);*/
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: left 0.15s ease-out;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
+}
+
+/*  Slider  */
+
+/*input[type=range] {*/
+/*    width: 100%;*/
+/*    margin: 13.8px 0;*/
+/*    background-color: transparent;*/
+/*    -webkit-appearance: none;*/
+/*}*/
+input[type=range]:focus {
+    outline: none;
+}
+/*input[type=range]::-webkit-slider-runnable-track {*/
+/*    background: #3071a9;*/
+/*    border: 0.2px solid #010101;*/
+/*    border-radius: 1.3px;*/
+/*    width: 100%;*/
+/*    height: 8.4px;*/
+/*    cursor: pointer;*/
+/*}*/
+input[type=range]::-webkit-slider-thumb {
+    /*margin-top: -14px;*/
+    /*width: 16px;*/
+    /*height: 36px;*/
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 7px;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+/*input[type=range]:focus::-webkit-slider-runnable-track {*/
+/*    background: #367ebd;*/
+/*}*/
+/*input[type=range]::-moz-range-track {*/
+/*    background: #3071a9;*/
+/*    border: 0.2px solid #010101;*/
+/*    border-radius: 1.3px;*/
+/*    width: 100%;*/
+/*    height: 8.4px;*/
+/*    cursor: pointer;*/
+/*}*/
+/*input[type=range]::-moz-range-thumb {*/
+/*    width: 16px;*/
+/*    height: 36px;*/
+/*    background: #ffffff;*/
+/*    border: 1px solid #000000;*/
+/*    border-radius: 7px;*/
+/*    cursor: pointer;*/
+/*}*/
+/*input[type=range]::-ms-track {*/
+/*    background: transparent;*/
+/*    border-color: transparent;*/
+/*    border-width: 14.8px 0;*/
+/*    color: transparent;*/
+/*    width: 100%;*/
+/*    height: 8.4px;*/
+/*    cursor: pointer;*/
+/*}*/
+/*input[type=range]::-ms-fill-lower {*/
+/*    background: #2a6495;*/
+/*    border: 0.2px solid #010101;*/
+/*    border-radius: 2.6px;*/
+/*}*/
+/*input[type=range]::-ms-fill-upper {*/
+/*    background: #3071a9;*/
+/*    border: 0.2px solid #010101;*/
+/*    border-radius: 2.6px;*/
+/*}*/
+/*input[type=range]::-ms-thumb {*/
+/*    width: 16px;*/
+/*    height: 36px;*/
+/*    background: #ffffff;*/
+/*    border: 1px solid #000000;*/
+/*    border-radius: 7px;*/
+/*    cursor: pointer;*/
+/*    margin-top: 0;*/
+/*    !*Needed to keep the Edge thumb centred*!*/
+/*}*/
+/*input[type=range]:focus::-ms-fill-lower {*/
+/*    background: #3071a9;*/
+/*}*/
+/*input[type=range]:focus::-ms-fill-upper {*/
+/*    background: #367ebd;*/
+/*}*/
+
