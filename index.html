@@ -12,13 +12,31 @@
         <h1>Guitar Strings</h1>
     </div>
     <div class="card-container">
-        <span class="flash-card">A</span>
+        <span class="flash-card"></span>
     </div>
     <div class="footer">
-        <button id="next-card">Next</button>
-        <button id="timer-start">Auto</button>
-        <input id="interval" type="range" min="500" max="5000" value="2000" step="50">
-        <label for="interval">1.0</label>
+        <div class="toggle">
+            <input type="checkbox" class="onoffswitch-checkbox" id="auto-select" tabindex="0">
+            <label class="onoffswitch-label" for="auto-select">
+                <span class="onoffswitch-inner" data-checked="AUTO" data-unchecked="OFF"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+
+        <div class="range-slider">
+            <input id="interval-time" type="range" min="500" max="5000" value="2000" step="50">
+            <label for="interval-time"></label>
+        </div>
+
+        <div class="switch-field">
+            <input type="radio" id="cards-natural" name="card-select" value="naturals" checked>
+            <label for="cards-natural">&natural;</label>
+            <input type="radio" id="cards-accidental" name="card-select" value="accidentals">
+            <label for="cards-accidental" id="fuck">&flat;&sharp;</label>
+            <input type="radio" id="cards-both" name="card-select" value="both">
+            <label for="cards-both">All</label>
+            <span class="switch-selection"></span>
+        </div>
     </div>
 </div>
 </body>
