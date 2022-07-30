@@ -4,19 +4,29 @@ import { chaosBag } from "./chaos_bag";
 import { autofail, numberViews, transientSymbols, variableSymbols } from "./chaos_token_view";
 
 export function setupChaosContents(element) {
-    let html = '';
-
     for (let token of [...transientSymbols, ...variableSymbols, autofail, ...numberViews]) {
-        html += `<div>
+        element.innerHTML += `<div>
 <span class="token-name">${token.html}</span>
-<button class="plus-minus-button minus-button"></button>
-<span class="token-count">${chaosBag.getCount(token.name)}</span>
-<button class="plus-minus-button plus-button"></button>
+<button data-token="${token.name}" class="minus-button"></button>
+<span data-token="${token.name}" class="token-count">${chaosBag.getCount(token.name)}</span>
+<button data-token="${token.name}" class="plus-button"></button>
 </div>
 `;
+
     }
 
+    const minusAction = event => {
+        const tokenName = event.target.getAttribute('data-token');
+        const countEl = event.target.parentElement.querySelector(`.token-count[data-token="${tokenName}"]`);
+        countEl.innerText = chaosBag.remove(tokenName);
+    };
+    element.querySelectorAll('button.minus-button').forEach(button => button.addEventListener('click', minusAction));
 
-    element.innerHTML = html;
+    const plusAction = event => {
+        const tokenName = event.target.getAttribute('data-token');
+        const countEl = event.target.parentElement.querySelector(`.token-count[data-token="${tokenName}"]`);
+        countEl.innerText = chaosBag.add(tokenName);
+    };
+    element.querySelectorAll('button.plus-button').forEach(button => button.addEventListener('click', plusAction));
 
 }

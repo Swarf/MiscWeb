@@ -49,6 +49,8 @@ class ChaosBag
         {
             this.tokenCounts[token] = 1;
         }
+
+        return this.tokenCounts[token];
     }
 
     remove(token)
@@ -57,6 +59,8 @@ class ChaosBag
         {
             this.tokenCounts[token]--;
         }
+
+        return this.getCount(token);
     }
 
     getCount(token) {
