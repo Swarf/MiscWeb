@@ -1,0 +1,129 @@
+
+
+#contents-tracker {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+}
+
+#contents-tracker div {
+  display: flex;
+}
+
+#chaos-outcomes {
+
+}
+
+
+.plus-minus-button {
+  border-radius: 50%;
+  padding: 0.25em 0.6em;
+  font-size: 1rem;
+  font-weight: 700;
+  /*color: #1a1a1a;*/
+  /*background-color: rgba(256, 256, 256, 0.14);*/
+}
+
+.plus-button:before {
+  content: '\002B';
+}
+
+.minus-button:before {
+  content: '\2212';
+}
+
+.card {
+  padding: 1rem;
+  margin: 1rem;
+  border: solid 2px;
+  border-radius: 20px;
+}
+
+.calculator-view {
+  display: flex;
+}
+
+
+.token-name {
+  padding-right: 2em;
+  /*border: solid red 1px;*/
+  /*background-color: red;*/
+  width: 2.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Icons */
+
+@font-face {
+  font-family: "Arkham Icons";
+  src: url("./fonts/arkham-icons.otf") format('opentype'),
+    url("./fonts/arkham-icons.ttf") format('truetype');
+}
+
+[class^="icon-"], [class*=" icon-"]
+{
+  font-family: "Arkham Icons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  /*line-height: 1;*/
+}
+
+.icon-skull:before {
+  content: 'k';
+}
+
+.icon-cultist:before {
+  content: 'l';
+}
+
+.icon-tablet:before {
+  content: 'q';
+}
+
+.icon-squiddy:before {
+  content: 'n';
+}
+
+.icon-eldersign:before {
+  content: 'o';
+}
+
+.icon-autofail:before {
+  content: 'm';
+}
+
+.icon-bless:before {
+  content: 'v';
+}
+
+.icon-curse:before {
+  content: 'w';
+}
+
+.icon-frost:before {
+  content: 'x';
+}
+
+.icon-investigator:before {
+  content: 'u';
+}
+
+.icon-willpower:before {
+  content: 'p';
+}
+
+.icon-intellect:before {
+  content: 'b';
+}
+
+.icon-strength:before {
+  content: 'c';
+}
+
+.icon-agility:before {
+  content: 'a';
+}
