@@ -133,6 +133,8 @@ class ChaosBag
         const allTokenCount = terminalTokenCount + redrawTokenCount;
 
         // Calculate redraw impact
+        const redrawEffects = {0: terminalTokenCount / allTokenCount};  // Start with the chance for no redraw tokens
+
         for (let redrawsBeforeTerm=1; redrawsBeforeTerm <= redrawTokenCount; redrawsBeforeTerm++) {
             // Calculate chance of this many general redraws
             // If there are 3 redraw tokens, 17 terminal tokens, and we're considering the case of 2 redraws pulled
@@ -142,15 +144,46 @@ class ChaosBag
                 chance *= (redrawTokenCount - i) / (allTokenCount - i);
             }
 
-            console.log(redrawsBeforeTerm, chance);
+            const allComboCount = binomial(redrawTokenCount, redrawsBeforeTerm);
             for (const combo of combinations(redrawCountsObj, redrawsBeforeTerm)) {
-                console.log(combo);
+                let modifier = 0;
+                let comboCount = 1;
+
+                for (const [token, count] of Object.entries(combo)) {
+                    modifier += this.#tokenValues[token] * count;
+                    comboCount *= binomial(this.getCount(token), count);
+                }
+
+                redrawEffects[modifier] = (redrawEffects[modifier] || 0) + chance * comboCount / allComboCount;
+                // console.log(combo, `(${modifier}) ${comboCount}/${allComboCount}`);
             }
         }
 
-        // console.log(combinations(redrawCountsObj, 3));
+        // For a range of test skill gaps, calculate the chance of success.
+        const lowSkill = 0 - highModifier;
+        const highSkill = 2 - lowModifier;
+        const skillChances = [];
+        for (let skill = lowSkill; skill <= highSkill; skill++) {
+            const modifiedSuccesses = {};  // How many terminal tokens result in success, after redraw modifiers
+            Object.keys(redrawEffects).forEach(k => modifiedSuccesses[k] = 0);
+            for (const terminalModifier of this.#terminalModifiers) {
+                for (const redrawModifier of Object.keys(redrawEffects)) {
+                    if (skill + parseInt(redrawModifier) + terminalModifier >= succeedBy) {
+                        modifiedSuccesses[redrawModifier] += 1;
+                    }
+                }
+            }
 
-        return this.#terminalModifiers.toString();
+            let totalChance = 0;
+            for (const [redrawModifier, successes] of Object.entries(modifiedSuccesses)) {
+                totalChance += redrawEffects[redrawModifier] * successes / terminalTokenCount;
+            }
+
+            skillChances.push(totalChance);
+        }
+
+        console.log(skillChances);
+        return {lowSkill: lowSkill, chances: skillChances};
     }
 }
 
@@ -159,7 +192,7 @@ function combinations(counts, numChosen) {
 
     // If only one type is left, resolve immediately
     if (types.length === 1) {
-        return [Array(numChosen).fill(types[0])];
+        return [{[types[0]]: numChosen}];
     }
 
     let combos = [];
@@ -171,7 +204,7 @@ function combinations(counts, numChosen) {
 
     // If we're choosing just one, we can terminate here.
     if (numChosen === 1) {
-        return types.map(tokenType => [tokenType]);
+        return types.map(tokenType => { return {[tokenType]: 1}; });
     }
 
     for (const tokenType of types) {
@@ -185,7 +218,10 @@ function combinations(counts, numChosen) {
 
         // For all the combos starting with this token instance, add to the list
         for (let combo of combinations(countClone, numChosen - 1)) {
-            combos.push([tokenType, ...combo]);
+            if (tokenType in combo) combo[tokenType]++;
+            else combo[tokenType] = 1;
+
+            combos.push(combo);
         }
 
         // Remove this type so we can try without it next pass
