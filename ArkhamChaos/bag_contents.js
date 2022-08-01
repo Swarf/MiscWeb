@@ -1,5 +1,4 @@
 
-
 import { chaosBag } from "./chaos_bag";
 import { autofail, numberViews, transientSymbols, variableSymbols } from "./chaos_token_view";
 
@@ -12,7 +11,6 @@ export function setupChaosContents(element) {
 <button data-token="${token.name}" class="plus-button"></button>
 </div>
 `;
-
     }
 
     const minusAction = event => {
@@ -28,5 +26,4 @@ export function setupChaosContents(element) {
         countEl.innerText = chaosBag.add(tokenName);
     };
     element.querySelectorAll('button.plus-button').forEach(button => button.addEventListener('click', plusAction));
-
 }

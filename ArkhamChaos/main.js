@@ -1,6 +1,7 @@
 import './style.css'
 import './style_arkham.css'
 import { setupChaosContents } from "./bag_contents";
+import { setupOutcomeView } from "./outcomes";
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -18,3 +19,4 @@ document.querySelector('#app').innerHTML = `
 `;
 
 setupChaosContents(document.querySelector('#contents-tracker'));
+setupOutcomeView(document.querySelector('#chaos-outcomes'));
