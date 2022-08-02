@@ -10,7 +10,11 @@
 }
 
 #chaos-outcomes {
+  display: flex;
+}
 
+.outcome-container {
+  width: 600px;
 }
 
 

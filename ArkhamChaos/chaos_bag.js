@@ -7,9 +7,11 @@ class ChaosBag
     #tokenCounts;
     #terminalModifiers;
     #redrawTokens;
+    #listeners;
 
     constructor()
     {
+        this.#listeners = new Set();
         this.#tokenValues = {
             skull: -1,
             cultist: -2,
@@ -55,6 +57,8 @@ class ChaosBag
             const value = token in this.#tokenValues ? this.#tokenValues[token] : parseInt(token);
             this.#terminalModifiers.push(...Array(count).fill(value));
         }
+
+        this.#listeners.forEach(listener => setTimeout(listener));
     }
 
     add(token)
@@ -109,7 +113,11 @@ class ChaosBag
         this.#updateValueCounts();
     }
 
-    chance(succeedBy) {
+    onChange(callback) {
+        this.#listeners.add(callback);
+    }
+
+    chance(successThresholds) {
         // Determine the largest and smallest tokens so we have a good range of skill gaps to cover
         let lowModifier = false;
         let highModifier = false;
@@ -162,28 +170,37 @@ class ChaosBag
         // For a range of test skill gaps, calculate the chance of success.
         const lowSkill = 0 - highModifier;
         const highSkill = 2 - lowModifier;
-        const skillChances = [];
-        for (let skill = lowSkill; skill <= highSkill; skill++) {
-            const modifiedSuccesses = {};  // How many terminal tokens result in success, after redraw modifiers
-            Object.keys(redrawEffects).forEach(k => modifiedSuccesses[k] = 0);
-            for (const terminalModifier of this.#terminalModifiers) {
-                for (const redrawModifier of Object.keys(redrawEffects)) {
-                    if (skill + parseInt(redrawModifier) + terminalModifier >= succeedBy) {
-                        modifiedSuccesses[redrawModifier] += 1;
+        const skillChances = {};
+
+        for (const threshold of successThresholds) {
+            skillChances[threshold] = [];
+
+            for (let skill = lowSkill; skill <= highSkill; skill++) {
+                const modifiedSuccesses = {};  // How many terminal tokens result in success, after redraw modifiers
+                Object.keys(redrawEffects).forEach(k => modifiedSuccesses[k] = 0);
+                for (const terminalModifier of this.#terminalModifiers) {
+                    for (const redrawModifier of Object.keys(redrawEffects)) {
+                        if (skill + parseInt(redrawModifier) + terminalModifier >= threshold) {
+                            modifiedSuccesses[redrawModifier] += 1;
+                        }
                     }
                 }
-            }
 
-            let totalChance = 0;
-            for (const [redrawModifier, successes] of Object.entries(modifiedSuccesses)) {
-                totalChance += redrawEffects[redrawModifier] * successes / terminalTokenCount;
-            }
+                let totalChance = 0;
+                for (const [redrawModifier, successes] of Object.entries(modifiedSuccesses)) {
+                    totalChance += redrawEffects[redrawModifier] * successes / terminalTokenCount;
+                }
 
-            skillChances.push(totalChance);
+                skillChances[threshold].push(Math.round(totalChance * 1000) / 10);
+            }
         }
 
-        console.log(skillChances);
-        return {lowSkill: lowSkill, chances: skillChances};
+        const labels = [];
+        for (let i = lowSkill; i <= highSkill; i++) {
+            labels.push(i > 0 ? `+${i}` : i.toString());
+        }
+
+        return {labels: labels, chances: skillChances};
     }
 }
 
