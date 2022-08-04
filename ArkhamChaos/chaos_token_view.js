@@ -29,3 +29,6 @@ for (let x of chaosBag.numbers) {
 export const variableSymbols = [eldersign, skull, cultist, tablet, squiddy];
 export const transientSymbols = [bless, curse, frost];
 
+export function signedNumber(number) {
+    return number > 0 ? `+${number}` : number;
+}

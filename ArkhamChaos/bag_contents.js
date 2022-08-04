@@ -3,7 +3,7 @@ import { chaosBag } from "./chaos_bag";
 import { autofail, numberViews, transientSymbols, variableSymbols } from "./chaos_token_view";
 
 export function setupChaosContents(element) {
-    for (let token of [...transientSymbols, ...variableSymbols, autofail, ...numberViews]) {
+    for (const token of [...transientSymbols, ...variableSymbols, autofail, ...numberViews]) {
         element.innerHTML += `<div>
 <span class="token-name">${token.html}</span>
 <button data-token="${token.name}" class="minus-button"></button>

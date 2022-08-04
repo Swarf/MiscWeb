@@ -91,6 +91,10 @@ class ChaosBag
         return this.#tokenCounts[token] || 0;
     }
 
+    getValue(token) {
+        return this.#tokenValues[token];
+    }
+
     setCount(token, count)
     {
         this.#tokenCounts[token] = count;
@@ -122,7 +126,7 @@ class ChaosBag
         let lowModifier = false;
         let highModifier = false;
 
-        for (const modifier of this.#terminalModifiers) {
+        for (const modifier of this.numbers) {
             if (!isFinite(modifier)) continue;
             if (lowModifier === false || modifier < lowModifier) lowModifier = modifier;
             if (highModifier === false || modifier > highModifier) highModifier = modifier;
