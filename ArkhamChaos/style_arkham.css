@@ -12,6 +12,8 @@
 
 #chaos-outcomes {
   display: flex;
+  max-width: 800px;
+  flex: 1;
 }
 
 #token-values {
@@ -25,7 +27,8 @@
 }
 
 .outcome-container {
-  width: 600px;
+  /*width: 100%;*/
+  flex: 1;
 }
 
 
@@ -55,8 +58,20 @@
 
 .calculator-view {
   display: flex;
+  /*overflow: hidden;*/
+  /* Why does wrap result in a wrap even while there's room? */
+  /*flex-flow: wrap;*/
 }
 
+@media screen and (max-width: 600px) {
+/*@media (orientation: portrait) {*/
+  .calculator-view {
+    flex-flow: wrap row;
+  }
+  #chaos-outcomes {
+    order: -1;
+  }
+}
 
 .token-name {
   padding-right: 1em;
