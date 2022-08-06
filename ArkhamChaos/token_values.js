@@ -3,9 +3,10 @@ import { chaosBag } from "./chaos_bag";
 import { variableSymbols, signedNumber } from "./chaos_token_view";
 
 export function setupTokenValues(element) {
+    element.innerHTML = `<span class="card-title"><h2>Modifier</h2></span>`;
     for (const token of variableSymbols) {
         const tokenValue = chaosBag.getValue(token.name);
-        element.innerHTML += `<div>
+        element.innerHTML += `<div class="token-row">
     <span class="token-name">${token.html}</span>
     <button data-token="${token.name}" class="minus-button"></button>
     <span data-token="${token.name}" class="token-value">${signedNumber(tokenValue)}</span>

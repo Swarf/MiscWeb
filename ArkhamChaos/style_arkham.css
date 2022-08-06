@@ -1,9 +1,10 @@
 
+h2 {
+  margin: 0;
+}
 
 #contents-tracker {
-  font-size: 1.5rem;
-  line-height: 1.8rem;
-  padding-left: 0.3rem;
+  padding-left: 0.6rem;
 }
 
 #contents-tracker div {
@@ -11,15 +12,17 @@
 }
 
 #chaos-outcomes {
-  display: flex;
-  max-width: 800px;
   flex: 1;
 }
 
 #token-values {
+  padding-left: 0.5rem;
+}
+
+.token-row {
   font-size: 1.5rem;
   line-height: 1.8rem;
-  padding-left: 0.2rem;
+  padding: 2px 0;
 }
 
 #token-values div {
@@ -28,7 +31,7 @@
 
 .outcome-container {
   /*width: 100%;*/
-  flex: 1;
+  display: flex;
 }
 
 
@@ -56,12 +59,48 @@
   border-radius: 20px;
 }
 
+.card h2, p {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: Avenir, Helvetica, sans-serif;
+  text-transform: uppercase;
+  /*font-variant: small-caps;*/
+}
+
+.card-title {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+
 .calculator-view {
   display: flex;
-  /*overflow: hidden;*/
-  /* Why does wrap result in a wrap even while there's room? */
-  /*flex-flow: wrap;*/
 }
+
+.token-name {
+  padding-right: 0.5em;
+  padding-left: 0.2rem;
+  width: 1.6rem;
+  display: flex;
+  justify-content: flex-end;
+  font-family: serif;
+  font-weight: 700;
+  font-size: 22px; /* only applies to the number tokens */
+}
+
+.token-count {
+  padding: 0 0.4rem;
+}
+
+.token-value {
+  padding: 0 0.4rem;
+
+  /* Extra attributes due to the values having "+" in front of positive nums */
+  width: 1.6rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
 
 @media screen and (max-width: 600px) {
 /*@media (orientation: portrait) {*/
@@ -71,26 +110,21 @@
   #chaos-outcomes {
     order: -1;
   }
+
+  #app {
+    padding: 0;
+  }
+
+  .card {
+    margin: 0.4rem;
+    padding: 1rem 0.3rem;
+  }
+
+  .token-name {
+    /*padding-left: 4rem;*/
+  }
 }
 
-.token-name {
-  padding-right: 1em;
-  padding-left: 0.5rem;
-  width: 2rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.token-count {
-  padding: 0 0.4rem;
-}
-
-.token-value {
-  padding: 0 0.4rem;
-  width: 1.7rem;
-  display: flex;
-  justify-content: flex-end;
-}
 
 /* Icons */
 
@@ -105,6 +139,7 @@
   font-family: "Arkham Icons";
   speak: none;
   font-style: normal;
+  font-size: 24px;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;

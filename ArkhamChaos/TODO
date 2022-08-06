@@ -1,7 +1,13 @@
 * Make functional
-* Support light/dark mode
-* Support "fail after" cases
+  * Redraw control
+  * Support "fail after" cases
+* Favicon
+* Support light/dark mode (plus dynamic)
+* Make plus/minus buttons stand out on mobile
+* Move the data range to the view
 * Make responsive
+* Cookies to remember amounts/values?
+  * Load preset
 * Support special card effects
   * Ritual candles
   * Counterspell

@@ -35,7 +35,7 @@ Chart.register(
 
 export function setupOutcomeView(element) {
     // chaosBag.setCount('frost', 4);
-    element.innerHTML = `<dev class="outcome-container"><canvas id="outcomesChart"></canvas></dev>`;
+    element.innerHTML = `<div class="outcome-container card"><canvas id="outcomesChart"></canvas></div>`;
 
     // Colors - dark by default
     Chart.defaults.color = 'rgb(255, 255, 255, 0.95)';

@@ -7,12 +7,9 @@ import { setupTokenValues } from "./token_values";
 document.querySelector('#app').innerHTML = `
   <div>
     <div class="calculator-view">
-        <div class="card" id="contents-tracker">
-        </div>
-        <div class="card" id="chaos-outcomes">
-        </div>
-        <div class="card" id="token-values">
-        </div>
+        <div class="card" id="contents-tracker"></div>
+        <div id="chaos-outcomes"></div>
+        <div><div class="card" id="token-values"></div></div>
     </div>
   </div>
 `;
