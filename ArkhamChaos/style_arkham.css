@@ -52,6 +52,39 @@ h2 {
   content: '\2212';
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  width: 1rem;
+  height: 1rem;
+  border: 0.15rem solid currentColor;
+  color: currentColor;
+  border-radius: 0.15rem;
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em;
+  background-color: currentColor;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input.redraw-toggle {
+  margin-top: 0.4rem;
+  margin-left: 0.5rem;
+}
+
 .card {
   padding: 1rem;
   margin: 1rem;

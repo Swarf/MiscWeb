@@ -24,7 +24,8 @@ class ChaosBag
             autofail: -Infinity
         };
         this.numbers = [];
-        for (let i = 1; i > -5; i--) this.numbers.push(i);
+        for (let i = 2; i >= -6; i--) this.numbers.push(i);
+        this.numbers.push(-8);
 
         this.#tokenCounts = {
             skull: 2,
@@ -121,17 +122,7 @@ class ChaosBag
         this.#listeners.add(callback);
     }
 
-    chance(successThresholds) {
-        // Determine the largest and smallest tokens so we have a good range of skill gaps to cover
-        let lowModifier = false;
-        let highModifier = false;
-
-        for (const modifier of this.numbers) {
-            if (!isFinite(modifier)) continue;
-            if (lowModifier === false || modifier < lowModifier) lowModifier = modifier;
-            if (highModifier === false || modifier > highModifier) highModifier = modifier;
-        }
-
+    chance(lowSkill, highSkill, successThresholds) {
         // Determine how many tokens are terminal vs have redraws
         const terminalTokenCount = this.#terminalModifiers.length;
         let redrawTokenCount = 0;
@@ -172,8 +163,6 @@ class ChaosBag
         }
 
         // For a range of test skill gaps, calculate the chance of success.
-        const lowSkill = 0 - highModifier;
-        const highSkill = 2 - lowModifier;
         const skillChances = {};
 
         for (const threshold of successThresholds) {

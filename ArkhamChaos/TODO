@@ -1,11 +1,11 @@
 * Make functional
-  * Redraw control
   * Support "fail after" cases
 * Favicon
 * Support light/dark mode (plus dynamic)
 * Make plus/minus buttons stand out on mobile
 * Move the data range to the view
-* Make responsive
+* Make more responsive
+* Allow controls for how many skill values to view
 * Cookies to remember amounts/values?
   * Load preset
 * Support special card effects
@@ -19,4 +19,5 @@
   * Recall the future
   * Blasphemous Covenant
   * Ancient Covenant
- 
+* Better visuals
+  * Redraw label + better checkbox

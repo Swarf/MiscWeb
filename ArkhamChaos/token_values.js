@@ -11,7 +11,7 @@ export function setupTokenValues(element) {
     <button data-token="${token.name}" class="minus-button"></button>
     <span data-token="${token.name}" class="token-value">${signedNumber(tokenValue)}</span>
     <button data-token="${token.name}" class="plus-button"></button>
-    <span><input type="checkbox" /></span>
+    <span><input data-token="${token.name}" type="checkbox" class="redraw-toggle" /></span>
 </div>`;
 
         const minusAction = event => {
@@ -31,5 +31,13 @@ export function setupTokenValues(element) {
             countEl.innerText = signedNumber(tokenValue);
         };
         element.querySelectorAll('button.plus-button').forEach(button => button.addEventListener('click', plusAction));
+
+        const redrawToggle = event => {
+            const tokenName = event.target.getAttribute('data-token');
+            chaosBag.setRedraw(tokenName, event.target.checked);
+            // console.log(tokenName, event.target.checked);
+        };
+        element.querySelectorAll("input.redraw-toggle").forEach(checkbox => checkbox.addEventListener('change', redrawToggle));
+
     }
 }

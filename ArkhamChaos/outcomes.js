@@ -33,6 +33,9 @@ Chart.register(
     SubTitle
 );
 
+const lowSkill = -1;
+const highSkill = 6;
+
 export function setupOutcomeView(element) {
     // chaosBag.setCount('frost', 4);
     element.innerHTML = `<div class="outcome-container card"><canvas id="outcomesChart"></canvas></div>`;
@@ -59,7 +62,7 @@ export function setupOutcomeView(element) {
     const thresholds = [0, 2, 3];
 
     // Data
-    const { labels, chances } = chaosBag.chance(thresholds);
+    const { labels, chances } = chaosBag.chance(lowSkill, highSkill, thresholds);
     // const labels = Array.from({ length: chances[0].length }, (_, idx) => start + idx);
     const dataSetList = [];
     for (const [threshold, dataPoints] of Object.entries(chances)) {
@@ -108,7 +111,7 @@ export function setupOutcomeView(element) {
 
     const outcomesChart = new Chart(document.getElementById('outcomesChart'), config);
     chaosBag.onChange(function () {
-        const { chances } = chaosBag.chance(thresholds);
+        const { chances } = chaosBag.chance(lowSkill, highSkill, thresholds);
         outcomesChart.data.datasets.forEach((dataSet, idx) => dataSet.data = [...chances[thresholds[idx]], 100]);
         outcomesChart.update();
     });
