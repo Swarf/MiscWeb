@@ -11,6 +11,14 @@ h2 {
   display: flex;
 }
 
+#contents-tracker div.contents-collapsed {
+  display: none;
+}
+
+#contents-expand {
+  margin-left: auto;
+}
+
 #chaos-outcomes {
   flex: 1;
 }
@@ -30,7 +38,6 @@ h2 {
 }
 
 .outcome-container {
-  /*width: 100%;*/
   display: flex;
 }
 
