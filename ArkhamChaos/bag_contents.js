@@ -9,6 +9,8 @@ const extendedRows = [];
 export function setupChaosContents(element) {
     element.innerHTML = `<span class="card-title"><h2>Contents</></span>`;
 
+    // element.innerHTML += `<span class="">${chaosBag.bagSize()} tokens</span>`;
+
     for (const token of [...transientSymbols, ...variableSymbols, autofail, ...numberViews]) {
         element.innerHTML += `<div class="token-row ${alwaysShowTokens.indexOf(token) < 0 ? 'contents-collapsed' : ''}">
 <span class="token-name">${token.html}</span>
@@ -18,6 +20,7 @@ export function setupChaosContents(element) {
 </div>
 `;
     }
+    element.innerHTML += `<div class="contents-counts-row contents-collapsed"><span><label id="bag-size">${chaosBag.bagSize()}</label><label>tokens</label></span></div>`;
     element.innerHTML += `<div><button id="contents-expand">more</button></div>`;
 
     const minusAction = event => {
@@ -37,6 +40,7 @@ export function setupChaosContents(element) {
     element.querySelectorAll('div.token-row').forEach(row => {
             if(row.classList.contains('contents-collapsed')) extendedRows.push(row)
         });
+    extendedRows.push(element.querySelector('div.contents-counts-row'));
 
     const moreLessAction = event => {
         collapsed = !collapsed;

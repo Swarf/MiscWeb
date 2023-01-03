@@ -37,6 +37,30 @@ h2 {
   display: flex;
 }
 
+.contents-counts-row {
+  font-size: 0.8rem;
+  line-height: 1rem;
+}
+
+.contents-counts-row span {
+  background-color: #0b3336;
+  padding: 0.15rem 0.35rem;
+  border-radius: 8px;
+  margin-left: auto;
+}
+
+#bag-size {
+  padding-right: 0.25em;
+}
+
+.rules-row {
+  font-size: 1rem;
+}
+
+.rules-name {
+  white-space: nowrap;
+}
+
 .outcome-container {
   display: flex;
 }
@@ -96,7 +120,8 @@ input.redraw-toggle {
   padding: 1rem;
   margin: 1rem;
   border: solid 2px #888888;
-  border-radius: 20px;
+  border-radius: 12px;
+  box-shadow: 3px 2px 2px #5a587a;
 }
 
 .card h2, p {
@@ -141,6 +166,12 @@ input.redraw-toggle {
   justify-content: flex-end;
 }
 
+
+@media (prefers-color-scheme: light) {
+  .contents-counts-row span {
+    background-color: #e6fdff;
+  }
+}
 
 @media screen and (max-width: 600px) {
 /*@media (orientation: portrait) {*/

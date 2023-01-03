@@ -62,6 +62,10 @@ class ChaosBag
         this.#listeners.forEach(listener => setTimeout(listener));
     }
 
+    bagSize() {
+        return Object.values(this.#tokenCounts).reduce((prev, cur) => prev + cur, 0);
+    }
+
     add(token)
     {
         if (token in this.#tokenCounts)

@@ -5,6 +5,7 @@
 * Make plus/minus buttons stand out on mobile
 * Move the data range to the view
 * Make more responsive
+  * Two column cards
 * Allow controls for how many skill values to view
 * Cookies to remember amounts/values?
   * Load preset
