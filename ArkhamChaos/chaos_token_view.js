@@ -1,6 +1,4 @@
 
-import { chaosBag } from "./chaos_bag";
-
 class TokenView {
     constructor(name) {
         if (typeof name === 'number') {
@@ -22,9 +20,8 @@ const curse = new TokenView('curse');
 const frost = new TokenView('frost');
 
 export const numberViews = [];
-for (let x of chaosBag.numbers) {
-    numberViews.push(new TokenView(x));
-}
+for (let i = 2; i >= -6; i--) numberViews.push(new TokenView(i));
+numberViews.push(new TokenView(-8));
 
 export const variableSymbols = [eldersign, skull, cultist, tablet, squiddy];
 export const transientSymbols = [bless, curse, frost];

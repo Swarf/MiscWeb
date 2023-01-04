@@ -9,8 +9,6 @@ const extendedRows = [];
 export function setupChaosContents(element) {
     element.innerHTML = `<span class="card-title"><h2>Contents</></span>`;
 
-    // element.innerHTML += `<span class="">${chaosBag.bagSize()} tokens</span>`;
-
     for (const token of [...transientSymbols, ...variableSymbols, autofail, ...numberViews]) {
         element.innerHTML += `<div class="token-row ${alwaysShowTokens.indexOf(token) < 0 ? 'contents-collapsed' : ''}">
 <span class="token-name">${token.html}</span>
@@ -27,6 +25,7 @@ export function setupChaosContents(element) {
         const tokenName = event.target.getAttribute('data-token');
         const countEl = event.target.parentElement.querySelector(`.token-count[data-token="${tokenName}"]`);
         countEl.innerText = chaosBag.remove(tokenName);
+        document.getElementById('bag-size').innerText = chaosBag.bagSize();
     };
     element.querySelectorAll('button.minus-button').forEach(button => button.addEventListener('click', minusAction));
 
@@ -34,6 +33,7 @@ export function setupChaosContents(element) {
         const tokenName = event.target.getAttribute('data-token');
         const countEl = event.target.parentElement.querySelector(`.token-count[data-token="${tokenName}"]`);
         countEl.innerText = chaosBag.add(tokenName);
+        document.getElementById('bag-size').innerText = chaosBag.bagSize();
     };
     element.querySelectorAll('button.plus-button').forEach(button => button.addEventListener('click', plusAction));
 

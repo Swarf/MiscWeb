@@ -9,47 +9,18 @@ class ChaosBag
     #redrawTokens;
     #listeners;
 
-    constructor()
+    constructor(bagContents, tokenValues, redrawTokens)
     {
         this.#listeners = new Set();
-        this.#tokenValues = {
-            skull: -1,
-            cultist: -2,
-            tablet: -3,
-            squiddy: -3,
-            eldersign: 1,
-            bless: 2,
-            curse: -2,
-            frost: -1,
-            autofail: -Infinity
-        };
-        this.numbers = [];
-        for (let i = 2; i >= -6; i--) this.numbers.push(i);
-        this.numbers.push(-8);
+        this.#tokenCounts = bagContents;
+        this.#tokenValues = tokenValues;
+        this.#tokenValues['autofail'] = -Infinity;
+        this.#redrawTokens = new Set(redrawTokens);
 
-        this.#tokenCounts = {
-            skull: 2,
-            cultist: 1,
-            tablet: 1,
-            squiddy: 1,
-            eldersign: 1,
-            autofail: 1,
-            "+1": 1,
-            "0": 2,
-            "-1": 3,
-            "-2": 2,
-            "-3": 1,
-            "-4": 1
-        };
-        this.#redrawTokens = new Set();
-        this.#redrawTokens.add('bless');
-        this.#redrawTokens.add('curse');
-        this.#redrawTokens.add('frost');
-
-        this.#updateValueCounts();
+        this.#updateValueCounts(false);
     }
 
-    #updateValueCounts() {
+    #updateValueCounts(store = true) {
         this.#terminalModifiers = [];
 
         for (const [token, count] of Object.entries(this.#tokenCounts)) {
@@ -60,6 +31,18 @@ class ChaosBag
         }
 
         this.#listeners.forEach(listener => setTimeout(listener));
+
+        if (store) {
+            try {
+                localStorage.setItem("bagContents", JSON.stringify(this.#tokenCounts));
+                localStorage.setItem("tokenValues", JSON.stringify(this.#tokenValues));
+                localStorage.setItem("redrawTokens", JSON.stringify([...this.#redrawTokens]));
+            } catch (err) {
+                if (err instanceof DOMException) {
+                    console.log(`Failed to write localStorage. ${err.name} (${err.code})`);
+                }
+            }
+        }
     }
 
     bagSize() {
@@ -262,4 +245,71 @@ function binomial(n, k) {
 }
 // Help from https://stackoverflow.com/questions/37679987/efficient-computation-of-n-choose-k-in-node-js
 
-export const chaosBag = new ChaosBag();
+
+function defaultBagSetup() {
+    const tokenValues = {
+        skull: -1,
+        cultist: -2,
+        tablet: -3,
+        squiddy: -3,
+        eldersign: 1,
+        bless: 2,
+        curse: -2,
+        frost: -1,
+        autofail: -Infinity
+    };
+
+    const bagContents = {
+        skull: 2,
+        cultist: 1,
+        tablet: 1,
+        squiddy: 1,
+        eldersign: 1,
+        autofail: 1,
+        "+1": 1,
+        "0": 2,
+        "-1": 3,
+        "-2": 2,
+        "-3": 1,
+        "-4": 1
+    };
+    const redrawTokens = ['bless', 'curse', 'frost'];
+
+    return {
+        bagContents: bagContents,
+        tokenValues: tokenValues,
+        redrawTokens: redrawTokens
+    }
+}
+
+function loadBagSetup() {
+    const params = {};
+
+    for (let key of ['bagContents', 'tokenValues', 'redrawTokens']) {
+        const storedValue = localStorage.getItem(key);
+        if (storedValue) {
+            try {
+                const parsedValue = JSON.parse(storedValue);
+                if (parsedValue) {
+                    params[key] = parsedValue;
+                    continue;
+                }
+            } catch (err) {
+                console.error(`Error parsing localStorage ${key}: ${err.message}`);
+            }
+        }
+
+        console.log("Using default params");
+        return defaultBagSetup();
+    }
+
+    console.log("Found localStorage params");
+    return params;
+}
+
+const setupParams = loadBagSetup();
+export const chaosBag = new ChaosBag(
+    setupParams.bagContents,
+    setupParams.tokenValues,
+    setupParams.redrawTokens
+);
