@@ -6,12 +6,13 @@ export function setupTokenValues(element) {
     element.innerHTML = `<span class="card-title"><h2>Modifier</h2></span>`;
     for (const token of variableSymbols) {
         const tokenValue = chaosBag.getValue(token.name);
+        const checked = chaosBag.isRedrawn(token.name) ? 'checked' : '';
         element.innerHTML += `<div class="token-row">
     <span class="token-name">${token.html}</span>
     <button data-token="${token.name}" class="minus-button"></button>
     <span data-token="${token.name}" class="token-value">${signedNumber(tokenValue)}</span>
     <button data-token="${token.name}" class="plus-button"></button>
-    <span><input data-token="${token.name}" type="checkbox" class="redraw-toggle" /></span>
+    <span><input data-token="${token.name}" type="checkbox" class="redraw-toggle" ${checked} /></span>
 </div>`;
 
         const minusAction = event => {
@@ -35,7 +36,6 @@ export function setupTokenValues(element) {
         const redrawToggle = event => {
             const tokenName = event.target.getAttribute('data-token');
             chaosBag.setRedraw(tokenName, event.target.checked);
-            // console.log(tokenName, event.target.checked);
         };
         element.querySelectorAll("input.redraw-toggle").forEach(checkbox => checkbox.addEventListener('change', redrawToggle));
 

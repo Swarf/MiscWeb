@@ -39,7 +39,7 @@ class ChaosBag
                 localStorage.setItem("redrawTokens", JSON.stringify([...this.#redrawTokens]));
             } catch (err) {
                 if (err instanceof DOMException) {
-                    console.log(`Failed to write localStorage. ${err.name} (${err.code})`);
+                    console.error(`Failed to write localStorage. ${err.name} (${err.code})`);
                 }
             }
         }
@@ -81,6 +81,10 @@ class ChaosBag
 
     getValue(token) {
         return this.#tokenValues[token];
+    }
+
+    isRedrawn(token) {
+        return this.#redrawTokens.has(token);
     }
 
     setCount(token, count)
@@ -145,7 +149,6 @@ class ChaosBag
                 }
 
                 redrawEffects[modifier] = (redrawEffects[modifier] || 0) + chance * comboCount / allComboCount;
-                // console.log(combo, `(${modifier}) ${comboCount}/${allComboCount}`);
             }
         }
 
@@ -299,11 +302,9 @@ function loadBagSetup() {
             }
         }
 
-        console.log("Using default params");
         return defaultBagSetup();
     }
 
-    console.log("Found localStorage params");
     return params;
 }
 
