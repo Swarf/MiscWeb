@@ -7,8 +7,7 @@
 * Make more responsive
   * Two column cards
 * Allow controls for how many skill values to view
-* Cookies to remember amounts/values?
-  * Load preset
+* Load preset by scenario
 * Support special card effects
   * Ritual candles
   * Counterspell
@@ -20,5 +19,15 @@
   * Recall the future
   * Blasphemous Covenant
   * Ancient Covenant
+  * Unrelenting
 * Better visuals
   * Redraw label + better checkbox
+* Additional output
+  * Number of points you probably succeed by
+    * Number of clues from items like Archaic Glyphs
+    * Damage done by shotgun
+  * Parallel Skids gamble
+
+
+Done
+* Cookies to remember amounts/values
